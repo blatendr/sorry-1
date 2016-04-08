@@ -56,16 +56,15 @@ public final class Board {
      * Gets the start space for a given color.
      * <p>
      * @param color the color of the start space
-     * @throws BoardException if the color's index is out of range
      * @return the space
      */
-    public RoundSpace getStart(final Color color) throws BoardException {
+    public RoundSpace getStart(final Color color) {
         assert starts != null;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return starts[color.getIndex()];
     }
@@ -74,13 +73,12 @@ public final class Board {
      * Gets a given space.
      * <p>
      * @param index the index of the space
-     * @throws BoardException if the index is out of range
      * @return the space
      */
-    public SquareSpace getSpace(final int index) throws BoardException {
+    public SquareSpace getSpace(final int index) {
         assert spaces != null;
         if (index < 0 || index >= NUM_SPACES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return spaces[index];
     }
@@ -90,19 +88,16 @@ public final class Board {
      * <p>
      * @param color the color of the safety zone
      * @param index the index of the space
-     * @throws BoardException if either the color's index or the index is out
-     * of range
      * @return the space
      */
-    public SquareSpace getSafetyZoneSpace(final Color color, final int index)
-            throws BoardException {
+    public SquareSpace getSafetyZoneSpace(final Color color, final int index) {
         assert safetyZones != null;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (index < 0 || index >= NUM_SPACES_PER_SAFETY_ZONE
                 || color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return safetyZones[color.getIndex()][index];
     }
@@ -111,16 +106,15 @@ public final class Board {
      * Gets the home space for a given color.
      * <p>
      * @param color the color of the home space
-     * @throws BoardException if the color's index is out of range
      * @return the space
      */
-    public RoundSpace getHome(final Color color) throws BoardException {
+    public RoundSpace getHome(final Color color) {
         assert homes != null;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return homes[color.getIndex()];
     }
