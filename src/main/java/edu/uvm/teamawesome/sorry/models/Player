@@ -1,0 +1,39 @@
+/*
+Brad LAtendresse, 
+cs 205
+player class
+*/
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.lang.Object;
+
+public class Player
+{
+   String name;
+   String color;
+   int comp_lvl;
+   double win_ratio;
+   int p1=-1;
+   int p2=-1;
+   int p3=-1;
+   int p4=-1;
+   
+   public cs205_Player(String n,String col,int comp)
+      {
+      name = n;
+      color=col;
+      comp_lvl=comp;
+      }
+   
+   public String getName()
+      {
+      return name;
+      }
+
+
+
+
+
+}
