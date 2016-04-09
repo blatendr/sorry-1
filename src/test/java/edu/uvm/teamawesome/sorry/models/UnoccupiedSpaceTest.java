@@ -4,11 +4,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public abstract class UnoccupiedSpaceTest extends SpaceTest {
-    protected Piece piece;
+    protected Pawn pawn;
 
     @Before
     protected void setUp() throws BoardException {
-        piece = new Piece(Color.YELLOW);
+        pawn = new Pawn(Color.YELLOW);
         super.setUp();
     }
 
@@ -19,17 +19,17 @@ public abstract class UnoccupiedSpaceTest extends SpaceTest {
 
     @Test
     public void testOccupiedBy() {
-        assertFalse(space.occupiedBy(piece));
+        assertFalse(space.occupiedBy(pawn));
     }
 
     @Test
-    public void testPlacePiece() throws BoardException {
-        space.placePiece(piece);
-        assertTrue(space.occupiedBy(piece));
+    public void testPlacePawn() throws BoardException {
+        space.placePawn(pawn);
+        assertTrue(space.occupiedBy(pawn));
     }
 
     @Test(expected = BoardException.class)
-    public void testRemovePiece() throws BoardException {
-        space.removePiece(piece);
+    public void testRemovePawn() throws BoardException {
+        space.removePawn(pawn);
     }
 }

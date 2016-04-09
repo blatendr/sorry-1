@@ -16,12 +16,12 @@ public abstract class SpaceTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testPlacePieceNull() throws BoardException {
-        space.placePiece(null);
+    public void testPlacePawnNull() throws BoardException {
+        space.placePawn(null);
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testRemovePieceNull() throws BoardException {
-        space.removePiece(null);
+    public void testRemovePawnNull() throws BoardException {
+        space.removePawn(null);
     }
 }

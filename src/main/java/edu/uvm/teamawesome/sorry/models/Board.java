@@ -4,7 +4,7 @@ package edu.uvm.teamawesome.sorry.models;
  * Represents the Sorry board.
  * <p>
  * This consists of several collections of spaces which contain pointers to
- * pieces that occupy them.
+ * pawns that occupy them.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
@@ -31,7 +31,7 @@ public final class Board {
     /**
      * Constructs an empty board.
      * <p>
-     * Note that this does not place any pieces at the start spaces.
+     * Note that this does not place any pawns at the start spaces.
      */
     public Board() {
         starts = new RoundSpace[NUM_SIDES];

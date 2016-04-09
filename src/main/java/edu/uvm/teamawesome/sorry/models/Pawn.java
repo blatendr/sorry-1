@@ -1,29 +1,29 @@
 package edu.uvm.teamawesome.sorry.models;
 
 /**
- * Represents a Sorry piece.
+ * Represents a Sorry pawn.
  * <p>
- * Pieces to not currently contain pointers to their spaces on the board.
+ * Pawns to not currently contain pointers to their spaces on the board.
  * Instead, we track this information the other way around.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
-public final class Piece {
+public final class Pawn {
     private final Color color;
 
     /**
-     * Constructs a Piece of a given color.
+     * Constructs a Pawn of a given color.
      * <p>
-     * @param color the piece's color
+     * @param color the pawn's color
      */
-    public Piece(final Color color) {
+    public Pawn(final Color color) {
         this.color = color;
     }
 
     /**
-     * Gets the piece's color.
+     * Gets the pawn's color.
      * <p>
-     * @return the piece's color
+     * @return the pawn's color
      */
     public Color getColor() {
         assert color != null;

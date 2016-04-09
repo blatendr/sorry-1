@@ -11,8 +11,8 @@ public final class OccupiedRoundSpaceTest extends OccupiedSpaceTest {
     }
 
     @Test
-    public void testPlacePieceNonOccupant() throws BoardException {
-        space.placePiece(nonOccupant);
+    public void testPlacePawnNonOccupant() throws BoardException {
+        space.placePawn(nonOccupant);
         assertTrue(space.occupiedBy(nonOccupant));
     }
 }

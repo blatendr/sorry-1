@@ -3,12 +3,12 @@ package edu.uvm.teamawesome.sorry.models;
 import java.util.LinkedList;
 
 /**
- * A space which can hold many pieces.
+ * A space which can hold many pawns.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
 public final class RoundSpace extends Space {
-    private LinkedList<Piece> occupants;
+    private LinkedList<Pawn> occupants;
 
     /**
      * Constructs an empty RoundSpace.
@@ -16,7 +16,7 @@ public final class RoundSpace extends Space {
      * Round spaces can hold an unlimited number of occupants each.
      */
     public RoundSpace() {
-        occupants = new LinkedList<Piece>();
+        occupants = new LinkedList<Pawn>();
     }
 
     /**
@@ -30,52 +30,52 @@ public final class RoundSpace extends Space {
     }
 
     /**
-     * Returns true if the space is occupied by a given piece.
+     * Returns true if the space is occupied by a given pawn.
      * <p>
-     * @param piece the piece
-     * @return true if the space is occupied by the piece
+     * @param pawn the pawn
+     * @return true if the space is occupied by the pawn
      */
-    public boolean occupiedBy(final Piece piece) {
+    public boolean occupiedBy(final Pawn pawn) {
         assert occupants != null;
-        if (piece == null) {
+        if (pawn == null) {
             throw new IllegalArgumentException();
         }
-        return occupants.contains(piece);
+        return occupants.contains(pawn);
     }
 
     /**
-     * Places a piece on the space.
+     * Places a pawn on the space.
      * <p>
-     * Note that the piece is not automatically removed from its previous space.
+     * Note that the pawn is not automatically removed from its previous space.
      * <p>
-     * @param piece the piece
-     * @throws BoardException if the piece already occupies the space
+     * @param pawn the pawn
+     * @throws BoardException if the pawn already occupies the space
      */
-    public void placePiece(final Piece piece) throws BoardException {
+    public void placePawn(final Pawn pawn) throws BoardException {
         assert occupants != null;
-        if (piece == null) {
+        if (pawn == null) {
             throw new IllegalArgumentException();
         }
-        if (occupiedBy(piece)) {
+        if (occupiedBy(pawn)) {
             throw new BoardException();
         }
-        occupants.add(piece);
+        occupants.add(pawn);
     }
 
     /**
-     * Removes a piece from the space.
+     * Removes a pawn from the space.
      * <p>
-     * @param piece the piece
-     * @throws BoardException if the piece does not occupy the space
+     * @param pawn the pawn
+     * @throws BoardException if the pawn does not occupy the space
      */
-    public void removePiece(final Piece piece) throws BoardException {
+    public void removePawn(final Pawn pawn) throws BoardException {
         assert occupants != null;
-        if (piece == null) {
+        if (pawn == null) {
             throw new IllegalArgumentException();
         }
-        if (!occupiedBy(piece)) {
+        if (!occupiedBy(pawn)) {
             throw new BoardException();
         }
-        occupants.remove(piece);
+        occupants.remove(pawn);
     }
 }

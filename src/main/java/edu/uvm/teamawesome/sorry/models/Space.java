@@ -3,7 +3,7 @@ package edu.uvm.teamawesome.sorry.models;
 /**
  * Represents a space on the Sorry board.
  * <p>
- * Spaces contain pointers to the pieces that occupy them, but not to adjacent
+ * Spaces contain pointers to the pawns that occupy them, but not to adjacent
  * or related spaces.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
@@ -17,28 +17,28 @@ public abstract class Space {
     public abstract boolean occupied();
 
     /**
-     * Returns true if the space is occupied by a given piece.
+     * Returns true if the space is occupied by a given pawn.
      * <p>
-     * @param piece the piece
-     * @return true if the space is occupied by the piece
+     * @param pawn the pawn
+     * @return true if the space is occupied by the pawn
      */
-    public abstract boolean occupiedBy(Piece piece);
+    public abstract boolean occupiedBy(Pawn pawn);
 
     /**
-     * Places a piece on the space.
+     * Places a pawn on the space.
      * <p>
-     * Note that the piece is not automatically removed from its previous space.
+     * Note that the pawn is not automatically removed from its previous space.
      * <p>
-     * @param piece the piece
+     * @param pawn the pawn
      * @throws BoardException if the space is already occupied
      */
-    public abstract void placePiece(final Piece piece) throws BoardException;
+    public abstract void placePawn(final Pawn pawn) throws BoardException;
 
     /**
-     * Removes a piece from the space.
+     * Removes a pawn from the space.
      * <p>
-     * @param piece the piece
-     * @throws BoardException if the piece does not occupy the space
+     * @param pawn the pawn
+     * @throws BoardException if the pawn does not occupy the space
      */
-    public abstract void removePiece(final Piece piece) throws BoardException;
+    public abstract void removePawn(final Pawn pawn) throws BoardException;
 }

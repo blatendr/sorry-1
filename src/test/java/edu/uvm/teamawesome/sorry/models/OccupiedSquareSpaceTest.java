@@ -11,7 +11,7 @@ public final class OccupiedSquareSpaceTest extends OccupiedSpaceTest {
     }
 
     @Test(expected = BoardException.class)
-    public void testPlacePieceNonOccupant() throws BoardException {
-        space.placePiece(nonOccupant);
+    public void testPlacePawnNonOccupant() throws BoardException {
+        space.placePawn(nonOccupant);
     }
 }
