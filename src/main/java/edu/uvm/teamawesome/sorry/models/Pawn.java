@@ -17,6 +17,9 @@ public final class Pawn {
      * @param color the pawn's color
      */
     public Pawn(final Color color) {
+        if (color == null) {
+            throw new IllegalArgumentException();
+        }
         this.color = color;
     }
 
