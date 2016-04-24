@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 public final class OccupiedRoundSpaceTest extends OccupiedSpaceTest {
     @Before
     public void setUp() throws BoardException {
-        space = new RoundSpace();
+        space = new RoundSpace(Color.YELLOW);
         super.setUp();
     }
 

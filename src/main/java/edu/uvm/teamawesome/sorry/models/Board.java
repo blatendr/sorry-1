@@ -39,18 +39,21 @@ public final class Board {
         safetyZones = new SquareSpace[NUM_SIDES][NUM_SPACES_PER_SAFETY_ZONE];
         homes = new RoundSpace[NUM_SIDES];
         for (int i = 0; i < starts.length; i++) {
-            starts[i] = new RoundSpace();
+            starts[i] = new RoundSpace(Color.colorOfIndex(i));
         }
         for (int i = 0; i < spaces.length; i++) {
-            spaces[i] = new SquareSpace();
+            spaces[i] = new SquareSpace(
+                    Color.colorOfIndex(i % Color.getNumColors()), i);
         }
         for (int i = 0; i < safetyZones.length; i++) {
             for (int j = 0; j < safetyZones[i].length; j++) {
-                safetyZones[i][j] = new SquareSpace();
+                // safety zone indices start above normal indices
+                safetyZones[i][j] = new SquareSpace(Color.colorOfIndex(i),
+                        NUM_SPACES + i * NUM_SPACES_PER_SAFETY_ZONE + j);
             }
         }
         for (int i = 0; i < homes.length; i++) {
-            homes[i] = new RoundSpace();
+            homes[i] = new RoundSpace(Color.colorOfIndex(i));
         }
     }
 

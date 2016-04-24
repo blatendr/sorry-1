@@ -6,6 +6,8 @@ package edu.uvm.teamawesome.sorry.models;
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
 public final class SquareSpace extends Space {
+    private final int index;
+
     private Pawn occupant;
 
     /**
@@ -13,8 +15,19 @@ public final class SquareSpace extends Space {
      * <p>
      * Square spaces can hold one occupant each.
      */
-    public SquareSpace() {
+    public SquareSpace(final Color color, final int index) {
+        super(color);
+        this.index = index;
         occupant = null;
+    }
+
+    /**
+     * Returns the index of the space.
+     * <p>
+     * @return the index
+     */
+    public int getIndex() {
+        return index;
     }
 
     /**

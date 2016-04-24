@@ -19,7 +19,7 @@ public final class PawnTest {
     @Test
     public void testPlaceGetSpace() throws BoardException {
         Pawn pawn = new Pawn(Color.YELLOW);
-        Space space = new SquareSpace();
+        Space space = new SquareSpace(Color.YELLOW, 0);
         pawn.place(space);
         assertSame(pawn.getSpace(), space);
     }
@@ -33,15 +33,15 @@ public final class PawnTest {
     @Test
     public void testOccupiesNotPlaced() {
         Pawn pawn = new Pawn(Color.YELLOW);
-        Space space = new SquareSpace();
+        Space space = new SquareSpace(Color.YELLOW, 0);
         assertFalse(pawn.occupies(space));
     }
 
     @Test
     public void testPlaceOccupiesFalse() {
         Pawn pawn = new Pawn(Color.YELLOW);
-        Space space1 = new SquareSpace();
-        Space space2 = new SquareSpace();
+        Space space1 = new SquareSpace(Color.YELLOW, 0);
+        Space space2 = new SquareSpace(Color.YELLOW, 0);
         pawn.place(space1);
         assertFalse(pawn.occupies(space2));
     }
@@ -49,7 +49,7 @@ public final class PawnTest {
     @Test
     public void testPlaceOccupiesTrue() {
         Pawn pawn = new Pawn(Color.YELLOW);
-        Space space = new SquareSpace();
+        Space space = new SquareSpace(Color.YELLOW, 0);
         pawn.place(space);
         assertTrue(pawn.occupies(space));
     }

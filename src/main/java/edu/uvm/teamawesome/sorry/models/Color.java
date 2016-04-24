@@ -30,6 +30,13 @@ public enum Color {
         this.name = name;
     }
 
+    public static Color colorOfIndex(final int index) {
+        if (index < 0 || index >= NUM_COLORS) {
+            throw new IllegalArgumentException();
+        }
+        return values()[index];
+    }
+
     /**
      * The number of player colors in the game.
      * <p>

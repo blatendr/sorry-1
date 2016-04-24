@@ -9,6 +9,16 @@ package edu.uvm.teamawesome.sorry.models;
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
 public abstract class Space {
+    private final Color color;
+
+    public Space(final Color color) {
+        this.color = color;
+    }
+
+    public final Color getColor() {
+        return color;
+    }
+
     /**
      * Returns true if the space is occupied.
      * <p>

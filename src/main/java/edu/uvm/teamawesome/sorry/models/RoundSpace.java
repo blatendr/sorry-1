@@ -15,7 +15,8 @@ public final class RoundSpace extends Space {
      * <p>
      * Round spaces can hold an unlimited number of occupants each.
      */
-    public RoundSpace() {
+    public RoundSpace(final Color color) {
+        super(color);
         occupants = new LinkedList<Pawn>();
     }
 
