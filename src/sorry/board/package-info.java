@@ -1,6 +1,6 @@
 /**
- * Models (for use in the MVC paradigm).
+ * Board model classes.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;

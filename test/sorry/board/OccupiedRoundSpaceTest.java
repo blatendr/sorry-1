@@ -1,4 +1,4 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 import org.junit.*;
 import static org.junit.Assert.*;

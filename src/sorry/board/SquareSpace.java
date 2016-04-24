@@ -1,4 +1,4 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 /**
  * A space which can hold only one pawn.

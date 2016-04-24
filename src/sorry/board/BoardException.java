@@ -1,4 +1,4 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 /**
  * Thrown to indicate that a method has requested an illegal board
