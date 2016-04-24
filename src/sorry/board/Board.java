@@ -1,10 +1,10 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 /**
  * Represents the Sorry board.
  * <p>
  * This consists of several collections of spaces which contain pointers to
- * pieces that occupy them.
+ * pawns that occupy them.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */
@@ -31,13 +31,30 @@ public final class Board {
     /**
      * Constructs an empty board.
      * <p>
-     * Note that this does not place any pieces at the start spaces.
+     * Note that this does not place any pawns at the start spaces.
      */
     public Board() {
         starts = new RoundSpace[NUM_SIDES];
         spaces = new SquareSpace[NUM_SPACES];
         safetyZones = new SquareSpace[NUM_SIDES][NUM_SPACES_PER_SAFETY_ZONE];
         homes = new RoundSpace[NUM_SIDES];
+        for (int i = 0; i < starts.length; i++) {
+            starts[i] = new RoundSpace(Color.colorOfIndex(i));
+        }
+        for (int i = 0; i < spaces.length; i++) {
+            spaces[i] = new SquareSpace(
+                    Color.colorOfIndex(i % Color.getNumColors()), i);
+        }
+        for (int i = 0; i < safetyZones.length; i++) {
+            for (int j = 0; j < safetyZones[i].length; j++) {
+                // safety zone indices start above normal indices
+                safetyZones[i][j] = new SquareSpace(Color.colorOfIndex(i),
+                        NUM_SPACES + i * NUM_SPACES_PER_SAFETY_ZONE + j);
+            }
+        }
+        for (int i = 0; i < homes.length; i++) {
+            homes[i] = new RoundSpace(Color.colorOfIndex(i));
+        }
     }
 
     /**
@@ -56,16 +73,16 @@ public final class Board {
      * Gets the start space for a given color.
      * <p>
      * @param color the color of the start space
-     * @throws BoardException if the color's index is out of range
      * @return the space
      */
-    public RoundSpace getStart(final Color color) throws BoardException {
+    public RoundSpace getStart(final Color color) {
         assert starts != null;
+        assert starts.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return starts[color.getIndex()];
     }
@@ -74,13 +91,12 @@ public final class Board {
      * Gets a given space.
      * <p>
      * @param index the index of the space
-     * @throws BoardException if the index is out of range
      * @return the space
      */
-    public SquareSpace getSpace(final int index) throws BoardException {
+    public SquareSpace getSpace(final int index) {
         assert spaces != null;
         if (index < 0 || index >= NUM_SPACES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return spaces[index];
     }
@@ -90,19 +106,17 @@ public final class Board {
      * <p>
      * @param color the color of the safety zone
      * @param index the index of the space
-     * @throws BoardException if either the color's index or the index is out
-     * of range
      * @return the space
      */
-    public SquareSpace getSafetyZoneSpace(final Color color, final int index)
-            throws BoardException {
+    public SquareSpace getSafetyZoneSpace(final Color color, final int index) {
         assert safetyZones != null;
+        assert safetyZones.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (index < 0 || index >= NUM_SPACES_PER_SAFETY_ZONE
                 || color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return safetyZones[color.getIndex()][index];
     }
@@ -111,17 +125,39 @@ public final class Board {
      * Gets the home space for a given color.
      * <p>
      * @param color the color of the home space
-     * @throws BoardException if the color's index is out of range
      * @return the space
      */
-    public RoundSpace getHome(final Color color) throws BoardException {
+    public RoundSpace getHome(final Color color) {
         assert homes != null;
+        assert homes.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
         if (color.getIndex() < 0 || color.getIndex() >= NUM_SIDES) {
-            throw new BoardException();
+            throw new IndexOutOfBoundsException();
         }
         return homes[color.getIndex()];
+    }
+
+    /**
+     * Moves a pawn.
+     *
+     * @param pawn the pawn to move
+     * @param space the space to move the pawn to
+     * @throws BoardException if the requested space cannot be occupied
+     */
+    public void movePawn(final Pawn pawn, final Space space)
+            throws BoardException {
+        if (pawn == null || space == null) {
+            throw new IllegalArgumentException();
+        }
+        if (pawn.getSpace() != null) {
+            assert pawn.getSpace().occupiedBy(pawn);
+            pawn.getSpace().removePawn(pawn);
+        }
+        space.placePawn(pawn);
+        pawn.place(space);
+        assert space.occupiedBy(pawn);
+        assert pawn.occupies(space);
     }
 }

@@ -1,4 +1,4 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 /**
  *
@@ -28,6 +28,13 @@ public enum Color {
     Color(final int index, final String name) {
         this.index = index;
         this.name = name;
+    }
+
+    public static Color colorOfIndex(final int index) {
+        if (index < 0 || index >= NUM_COLORS) {
+            throw new IllegalArgumentException();
+        }
+        return values()[index];
     }
 
     /**

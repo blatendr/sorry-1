@@ -1,4 +1,4 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 /**
  * Thrown to indicate that a method has requested an illegal board
@@ -7,7 +7,7 @@ package edu.uvm.teamawesome.sorry.models;
  * Note that this is not intended to indicate board configurations that are
  * illegal according to the rules of Sorry. Instead, it indicates board
  * configurations that are physically or structurally unsound, such as two
- * pieces occupying the same square (single-piece) space.
+ * pawns occupying the same square (single-pawn) space.
  * <p>
  * @author <a href="mailto:brian@brianmwaters.net">Brian M. Waters</a>
  */

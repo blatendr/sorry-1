@@ -1,11 +1,11 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry.board;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
 public final class ColorTest {
     @Test
-    public void testNumColors() {
+    public void testGetNumColors() {
         assertEquals(Color.getNumColors(), 4);
     }
 
@@ -13,7 +13,7 @@ public final class ColorTest {
     public void testIndicesRange() {
         for (int i = 0; i < Color.values().length; i++) {
             assertTrue(Color.values()[i].getIndex() >= 0);
-            assertTrue(Color.values()[i].getIndex() <= Color.getNumColors());
+            assertTrue(Color.values()[i].getIndex() <= 4);
         }
     }
 
