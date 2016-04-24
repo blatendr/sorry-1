@@ -4,77 +4,109 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public final class BoardTest {
+    // shorthand
+    private Board board;
     private Color color;
 
     @Before
     public void setUp() {
+        board = Board.getSingletonInstance();
         color = Color.YELLOW;
     }
 
     @Test
     public void testGetSingletonInstanceIdempotentcy() {
-        Board firstInstance = Board.getSingletonInstance();
-        Board secondInstance = Board.getSingletonInstance();
+        Board firstInstance = board;
+        Board secondInstance = board;
         assertSame(firstInstance, secondInstance);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetStartNull() {
-        Board.getSingletonInstance().getStart(null);
+        board.getStart(null);
     }
 
     @Test
     public void testGetStart() {
-        RoundSpace start = Board.getSingletonInstance().getStart(color);
-        assertNull(start);
+        Space start = board.getStart(color);
+        assertNotNull(start);
+        assertTrue(start instanceof RoundSpace);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetSpaceInvalidIndexLow() {
-        Board.getSingletonInstance().getSpace(-1);
+        board.getSpace(-1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetSpaceInvalidIndexHigh() {
-        Board.getSingletonInstance().getSpace(60);
+        board.getSpace(60);
     }
 
     @Test
     public void testGetSpace() {
-        SquareSpace space = Board.getSingletonInstance().getSpace(59);
-        assertNull(space);
+        Space space = board.getSpace(59);
+        assertNotNull(space);
+        assertTrue(space instanceof SquareSpace);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetSafetyZoneSpaceNullColor() {
-        Board.getSingletonInstance().getSafetyZoneSpace(null, 59);
+        board.getSafetyZoneSpace(null, 59);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetSafetyZoneSpaceInvalidIndexLow() {
-        Board.getSingletonInstance().getSafetyZoneSpace(color, -1);
+        board.getSafetyZoneSpace(color, -1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetSafetyZoneSpaceInvalidIndexHigh() {
-        Board.getSingletonInstance().getSafetyZoneSpace(color, 5);
+        board.getSafetyZoneSpace(color, 5);
     }
 
     @Test
     public void testGetSafetyZoneSpace() {
-        SquareSpace safetyZoneSpace =
-                Board.getSingletonInstance().getSafetyZoneSpace(color, 4);
-        assertNull(safetyZoneSpace);
+        Space safetyZoneSpace =
+                board.getSafetyZoneSpace(color, 4);
+        assertNotNull(safetyZoneSpace);
+        assertTrue(safetyZoneSpace instanceof SquareSpace);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetHomeNull() {
-        Board.getSingletonInstance().getHome(null);
+        board.getHome(null);
     }
 
     @Test
     public void testGetHome() {
-        RoundSpace home = Board.getSingletonInstance().getHome(color);
-        assertNull(home);
+        Space home = board.getHome(color);
+        assertNotNull(home);
+        assertTrue(home instanceof RoundSpace);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMovePawnNullPawn() throws BoardException {
+        board.movePawn(null,
+                board.getHome(color));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMovePawnNullSpace() throws BoardException {
+        board.movePawn(new Pawn(color), null);
+    }
+
+    @Test
+    public void testMovePawn() throws BoardException {
+        Pawn pawn = new Pawn(color);
+        Space initialSpace = board.getHome(color);
+        Space secondSpace = board.getStart(color);
+        board.movePawn(pawn, initialSpace);
+        assertTrue(pawn.occupies(initialSpace));
+        assertTrue(initialSpace.occupiedBy(pawn));
+        board.movePawn(pawn, secondSpace);
+        assertTrue(pawn.occupies(secondSpace));
+        assertFalse(initialSpace.occupiedBy(pawn));
+        assertTrue(secondSpace.occupiedBy(pawn));
     }
 }

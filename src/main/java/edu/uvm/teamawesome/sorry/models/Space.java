@@ -27,18 +27,24 @@ public abstract class Space {
     /**
      * Places a pawn on the space.
      * <p>
-     * Note that the pawn is not automatically removed from its previous space.
+     * This is a low-level, package private method. It does not modify the pawn
+     * or any other object. You should almost definitely use the movePawn
+     * method on the Board class instead.
      * <p>
      * @param pawn the pawn
      * @throws BoardException if the space is already occupied
      */
-    public abstract void placePawn(final Pawn pawn) throws BoardException;
+    abstract void placePawn(final Pawn pawn) throws BoardException;
 
     /**
      * Removes a pawn from the space.
      * <p>
+     * This is a low-level, package private method. It does not modify the pawn
+     * or any other object. You should almost definitely use the movePawn
+     * method on the Board class instead.
+     * <p>
      * @param pawn the pawn
      * @throws BoardException if the pawn does not occupy the space
      */
-    public abstract void removePawn(final Pawn pawn) throws BoardException;
+    abstract void removePawn(final Pawn pawn) throws BoardException;
 }

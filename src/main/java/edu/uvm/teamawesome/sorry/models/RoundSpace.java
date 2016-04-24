@@ -51,7 +51,7 @@ public final class RoundSpace extends Space {
      * @param pawn the pawn
      * @throws BoardException if the pawn already occupies the space
      */
-    public void placePawn(final Pawn pawn) throws BoardException {
+    void placePawn(final Pawn pawn) throws BoardException {
         assert occupants != null;
         if (pawn == null) {
             throw new IllegalArgumentException();
@@ -68,7 +68,7 @@ public final class RoundSpace extends Space {
      * @param pawn the pawn
      * @throws BoardException if the pawn does not occupy the space
      */
-    public void removePawn(final Pawn pawn) throws BoardException {
+    void removePawn(final Pawn pawn) throws BoardException {
         assert occupants != null;
         if (pawn == null) {
             throw new IllegalArgumentException();

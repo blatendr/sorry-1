@@ -38,6 +38,20 @@ public final class Board {
         spaces = new SquareSpace[NUM_SPACES];
         safetyZones = new SquareSpace[NUM_SIDES][NUM_SPACES_PER_SAFETY_ZONE];
         homes = new RoundSpace[NUM_SIDES];
+        for (int i = 0; i < starts.length; i++) {
+            starts[i] = new RoundSpace();
+        }
+        for (int i = 0; i < spaces.length; i++) {
+            spaces[i] = new SquareSpace();
+        }
+        for (int i = 0; i < safetyZones.length; i++) {
+            for (int j = 0; j < safetyZones[i].length; j++) {
+                safetyZones[i][j] = new SquareSpace();
+            }
+        }
+        for (int i = 0; i < homes.length; i++) {
+            homes[i] = new RoundSpace();
+        }
     }
 
     /**
@@ -60,6 +74,7 @@ public final class Board {
      */
     public RoundSpace getStart(final Color color) {
         assert starts != null;
+        assert starts.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
@@ -92,6 +107,7 @@ public final class Board {
      */
     public SquareSpace getSafetyZoneSpace(final Color color, final int index) {
         assert safetyZones != null;
+        assert safetyZones.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
@@ -110,6 +126,7 @@ public final class Board {
      */
     public RoundSpace getHome(final Color color) {
         assert homes != null;
+        assert homes.length == NUM_SIDES;
         if (color == null) {
             throw new IllegalArgumentException();
         }
@@ -117,5 +134,27 @@ public final class Board {
             throw new IndexOutOfBoundsException();
         }
         return homes[color.getIndex()];
+    }
+
+    /**
+     * Moves a pawn.
+     *
+     * @param pawn the pawn to move
+     * @param space the space to move the pawn to
+     * @throws BoardException if the requested space cannot be occupied
+     */
+    public void movePawn(final Pawn pawn, final Space space)
+            throws BoardException {
+        if (pawn == null || space == null) {
+            throw new IllegalArgumentException();
+        }
+        if (pawn.getSpace() != null) {
+            assert pawn.getSpace().occupiedBy(pawn);
+            pawn.getSpace().removePawn(pawn);
+        }
+        space.placePawn(pawn);
+        pawn.place(space);
+        assert space.occupiedBy(pawn);
+        assert pawn.occupies(space);
     }
 }

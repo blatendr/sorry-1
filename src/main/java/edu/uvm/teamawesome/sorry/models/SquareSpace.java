@@ -60,7 +60,7 @@ public final class SquareSpace extends Space {
      * @param pawn the pawn
      * @throws BoardException if the space is already occupied
      */
-    public void placePawn(final Pawn pawn) throws BoardException {
+    void placePawn(final Pawn pawn) throws BoardException {
         if (pawn == null) {
             throw new IllegalArgumentException();
         }
@@ -76,7 +76,7 @@ public final class SquareSpace extends Space {
      * @param pawn the pawn
      * @throws BoardException if the pawn does not occupy the space
      */
-    public void removePawn(final Pawn pawn) throws BoardException {
+    void removePawn(final Pawn pawn) throws BoardException {
         if (pawn == null) {
             throw new IllegalArgumentException();
         }

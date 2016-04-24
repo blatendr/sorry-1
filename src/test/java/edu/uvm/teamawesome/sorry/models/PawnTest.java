@@ -9,4 +9,48 @@ public final class PawnTest {
         Pawn pawn = new Pawn(Color.YELLOW);
         assertSame(pawn.getColor(), Color.YELLOW);
     }
+
+    @Test
+    public void testGetSpaceNotPlaced() throws BoardException {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        assertNull(pawn.getSpace());
+    }
+
+    @Test
+    public void testPlaceGetSpace() throws BoardException {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        Space space = new SquareSpace();
+        pawn.place(space);
+        assertSame(pawn.getSpace(), space);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testOccupiesNull() {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        pawn.occupies(null);
+    }
+
+    @Test
+    public void testOccupiesNotPlaced() {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        Space space = new SquareSpace();
+        assertFalse(pawn.occupies(space));
+    }
+
+    @Test
+    public void testPlaceOccupiesFalse() {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        Space space1 = new SquareSpace();
+        Space space2 = new SquareSpace();
+        pawn.place(space1);
+        assertFalse(pawn.occupies(space2));
+    }
+
+    @Test
+    public void testPlaceOccupiesTrue() {
+        Pawn pawn = new Pawn(Color.YELLOW);
+        Space space = new SquareSpace();
+        pawn.place(space);
+        assertTrue(pawn.occupies(space));
+    }
 }
