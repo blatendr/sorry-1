@@ -1,14 +1,14 @@
-package edu.uvm.teamawesome.sorry.models;
+package sorry;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public final class CardTest {
+public final class DeckTest {
     @Test
     public void testColor() 
       {
     
-      SorryCards deck = new SorryCards();
+      Deck deck = new Deck();
       if (deck.length != 45)
          {
          System.out.println("error");

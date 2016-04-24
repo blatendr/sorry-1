@@ -3,17 +3,19 @@ Brad LAtendresse,
 cs 205
 Sorry game card logic
 */
-
+package sorry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.lang.Object;
 
-public class cs205_SorryCards{
+public class Deck{
    
    ArrayList<Integer> deck = new ArrayList<>();
    int[] cardArray = new int[]{1,2,3,4,5,7,8,10,11,12,13};   
-   public cs205_SorryCards() 
+   
+   
+   public Deck() 
    {
    int counter=0; //initiliaze constants
    
@@ -31,13 +33,13 @@ public class cs205_SorryCards{
  System.out.print(deck.size());
    }
 
-   public String draw()
+   public int draw()
      {
      int drawn = deck.get(0);
      deck.remove(0);
-     String message = getLogic(drawn);
+     
    
-       return message;
+       return drawn;
       }
 
 
