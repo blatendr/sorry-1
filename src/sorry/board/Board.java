@@ -39,21 +39,21 @@ public final class Board {
         safetyZones = new SquareSpace[NUM_SIDES][NUM_SPACES_PER_SAFETY_ZONE];
         homes = new RoundSpace[NUM_SIDES];
         for (int i = 0; i < starts.length; i++) {
-            starts[i] = new RoundSpace(Color.colorOfIndex(i));
+            starts[i] = new RoundSpace(Color.colorOfIndex(i), SpaceType.START);
         }
         for (int i = 0; i < spaces.length; i++) {
             spaces[i] = new SquareSpace(
-                    Color.colorOfIndex(i % Color.getNumColors()), i);
+                    Color.colorOfIndex(i % Color.getNumColors()), SpaceType.NORMAL, i);
         }
         for (int i = 0; i < safetyZones.length; i++) {
             for (int j = 0; j < safetyZones[i].length; j++) {
                 // safety zone indices start above normal indices
                 safetyZones[i][j] = new SquareSpace(Color.colorOfIndex(i),
-                        NUM_SPACES + i * NUM_SPACES_PER_SAFETY_ZONE + j);
+                        SpaceType.SAFETY_ZONE, j);
             }
         }
         for (int i = 0; i < homes.length; i++) {
-            homes[i] = new RoundSpace(Color.colorOfIndex(i));
+            homes[i] = new RoundSpace(Color.colorOfIndex(i), SpaceType.HOME);
         }
     }
 
@@ -160,4 +160,129 @@ public final class Board {
         assert space.occupiedBy(pawn);
         assert pawn.occupies(space);
     }
+   
+   /**
+  checks if a move the player is trying to make is valid 
+   
+   @param int i: number of the card, pawn p: the pawn player wants to move and Space s: the space the player wants to move the pawn to 
+   @returns true if move is valid
+   */
+  
+   public boolean checkMove(int i, Pawn p,Space s)
+      {
+      Space spaceType = p.getSpace();
+      SpaceType currentType = spaceType.getSpaceType();
+      
+      if (s.occupiedBy(p) == true)
+               return false;
+
+      
+      //If the pawn starts on a normal space     
+      if (currentType.equals("NORMAL"))
+         {
+         Space current_space = p.getSpace();
+         int current_index = ((SquareSpace)current_space).getIndex();
+         int space_index = ((SquareSpace)s).getIndex();
+
+
+         SpaceType moveType = s.getSpaceType();
+         //the the player wants to move onto a safetyzone,
+         if (moveType.equals("SAFETY_ZONE"))
+            {
+            int modded_index = current_index%16;
+            
+            //If the pawn is one or two spaces away
+            if (modded_index <3)
+               {
+               //find spaces until safe zone starts 
+               int spaces_till_safe = 3-modded_index+1;
+               
+               //get amount player wants to move pawn
+               int spaces_moved = spaces_till_safe+space_index+1;
+               //if they moved to an area their card wouldn't allow, move is invalid
+               if ( i!= spaces_moved)
+                  return false;
+                 
+               
+               
+               }
+            //if pawn if up to 11 spaces away, still could make it into safe area
+            if (modded_index > 7)
+               {
+               //calc amount player wants to move
+               int spaces_moved = 18-modded_index+space_index+1;
+               
+               if (spaces_moved != i)
+                  return false;
+          
+               }
+            }
+         //if pawn want to go from normal space to home
+         if (moveType.equals("HOME"))
+            {
+            if (i < 6)
+               return false;
+            }
+         //if player is moving pawn normal to normal
+            int spaces_moved = space_index -current_index;
+            if (spaces_moved != i)
+               return false;
+  
+         }
+     
+     
+      //If the pawn is moving out of start
+      if ( currentType.equals("START"))
+         {
+         if (i != 1 || i!=2 || i != 13)
+            {
+            return false;
+            }   
+         }
+
+      //If the pawn starts in the saefty zone
+      if ( currentType.equals("SAFETY_ZONE"))
+         {//
+          Space current_space = p.getSpace();
+          int current_index = ((SquareSpace)current_space).getIndex();
+          int space_index = ((SquareSpace)s).getIndex();
+          int spaces_moved = space_index -current_index;
+
+         
+         
+         //no number higher than 6 can move a pawn in safety zone
+         if (i >5)
+            return false;
+         SpaceType moveType = s.getSpaceType();
+         
+         //if pawn is going from safety into home
+         if (moveType.equals("HOME"))
+            {
+            int home = NUM_SPACES_PER_SAFETY_ZONE -current_index;
+            if (home != i)  
+               return false;
+            
+            }
+         //if pawn is going safety zone to safety zone
+         if (moveType.equals("SAFETY_ZONE"))
+            {
+            if (spaces_moved != i)  
+               return false;
+            }
+
+         //pawn cant go back to normal spaces
+         if (moveType.equals("NORMAL"))
+            return false;
+          
+         }
+     //cant move a pawn from home
+      if (currentType.equals("HOME"))
+         return false;
+      
+            //if nothing returned false, move is valid, return true
+            return true;
+      }
+
+
+
 }
